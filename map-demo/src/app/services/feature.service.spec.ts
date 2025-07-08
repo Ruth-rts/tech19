@@ -20,4 +20,3 @@ describe('FeatureService', () => {
     expect(service.features().some(f => f.id === id)).toBe(true);
   });
 });
-});
