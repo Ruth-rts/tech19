@@ -1,0 +1,13 @@
+<div class="home-page">
+  <div class="map-features-container">
+    <div class="features-controls box">
+      <app-add-feature></app-add-feature>
+    </div>
+    <div class="feature-list box">
+      <app-feature-list (onSelect)="selectFeature($event)" class="feature-list"></app-feature-list>
+    </div>
+  </div>
+  <div class="map-container">
+    <app-map [selectedFeature]="selectedFeature()"></app-map>
+  </div>
+</div>

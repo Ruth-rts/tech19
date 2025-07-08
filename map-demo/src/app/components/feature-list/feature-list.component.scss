@@ -1,0 +1,35 @@
+.feature-list-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  height: 100%;
+  flex-grow: 1;
+}
+.feature-list-elements {
+  overflow-y: auto;
+}
+.feature-item {
+  cursor: pointer;
+  transition: background-color 0.2s;
+
+  &:hover {
+    background-color: rgba(0, 0, 0, 0.04);
+    cursor: pointer;
+  }
+}
+.feature-item-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.zoom-hint {
+  opacity: 0;
+  font-size: 12px;
+  color: #1976d2;
+  transition: opacity 0.2s;
+}
+
+.feature-item:hover .zoom-hint {
+  opacity: 1;
+}

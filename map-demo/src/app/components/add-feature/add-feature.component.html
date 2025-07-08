@@ -1,0 +1,35 @@
+<div class="add-feature-container">
+  <h3>Add to Map</h3>
+  <div class="instruction">Add feature name before drawing</div>
+  <mat-form-field appearance="fill" style="width: 100%">
+    <mat-label>Feature name</mat-label>
+    <input
+      matInput
+      placeholder="Feature name"
+      [value]="featureName()"
+      (input)="onInputChange($event)"
+    />
+  </mat-form-field>
+
+  <app-add-feature-button
+    [label]="'Add Marker'"
+    [type]="FEATURE_TYPES.marker"
+    [disabled]="!isFeatureNameValid()"
+    (clicked)="addFeature($event)"
+    class="full-width-btn"
+  ></app-add-feature-button>
+  <app-add-feature-button
+    [label]="'Add Polygon'"
+    [type]="FEATURE_TYPES.polygon"
+    [disabled]="!isFeatureNameValid()"
+    (clicked)="addFeature($event)"
+    class="full-width-btn"
+  ></app-add-feature-button>
+  <app-add-feature-button
+    [label]="'Add Line'"
+    [type]="FEATURE_TYPES.line"
+    [disabled]="!isFeatureNameValid()"
+    (clicked)="addFeature($event)"
+    class="full-width-btn"
+  ></app-add-feature-button>
+</div>
