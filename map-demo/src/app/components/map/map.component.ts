@@ -26,7 +26,6 @@ import { registerDefaultLeafletIcon } from '../../utils/leaflet-icon';
 export class MapComponent {
   featureService = inject(FeatureService);
   pendingFeature = this.featureService.pendingFeature;
-  selectedFeature = input<Feature | null>(null);
 
   private map!: L.Map;
   mode: Mode = null;
@@ -44,14 +43,6 @@ export class MapComponent {
 
       if (feature) {
         this.enableMode(feature.type);
-      }
-    });
-
-    // Effect: When a feature is selected, zoom to it on the map.
-    effect(() => {
-      const selected = this.selectedFeature();
-      if (selected) {
-        this.zoomFeature(selected);
       }
     });
 

@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapComponent } from '../map/map.component';
 import 'leaflet/dist/images/marker-icon.png';
@@ -19,11 +19,10 @@ import { Feature } from '../../models/feature.model';
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
 })
-
 export class HomeComponent {
-  selectedFeature = signal<Feature | null>(null);
+  @ViewChild(MapComponent) mapComponent!: MapComponent;
 
   selectFeature(feature: Feature) {
-    this.selectedFeature.set({ ...feature });
+    this.mapComponent.zoomFeature(feature);
   }
 }

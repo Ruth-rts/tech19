@@ -27,7 +27,7 @@ export class FeatureService {
   }
 
   addFeature(feature: Omit<Feature, 'id'>): number {
-    const id = Date.now();
+    const id = this.generateRandomId();
     //push new feature
     this._features.update((current) => [...current, { ...feature, id }]);
     this.saveToStorage();
@@ -42,6 +42,7 @@ export class FeatureService {
     );
     this.saveToStorage();
   }
+  
 
   triggerResetDrawing(): void {
     this._resetDrawing.set(Date.now());
@@ -58,5 +59,9 @@ export class FeatureService {
 
   clearFeatures(): void {
     this._features.set([]);
+  }
+
+  generateRandomId(): number {
+    return Math.floor(Math.random() * 1_000_000_000_000)
   }
 }
