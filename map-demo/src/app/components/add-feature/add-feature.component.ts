@@ -27,7 +27,6 @@ export class AddFeatureComponent {
   isFeatureNameValid = computed(() => this.featureName().trim().length > 0);
   FEATURE_TYPES = FEATURE_TYPES;
 
-  //Adds a new feature of the given type
   addFeature(featureType: FeatureType): void {
     if (!this.isFeatureNameValid()) {
       console.warn('Feature name is invalid');
@@ -39,8 +38,6 @@ export class AddFeatureComponent {
     this.featureName.set('');
   }
 
-  /* Handles input changes for the feature name.
-  Updates the signal and triggers drawing reset. */
   onInputChange(event: Event) {
     this.featureName.set((event.target as HTMLInputElement).value);
     this.featureService.triggerResetDrawing();

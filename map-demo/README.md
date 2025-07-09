@@ -23,7 +23,7 @@ Then open your browser at [http://localhost:4200/](http://localhost:4200/).
 
 To run unit tests, use:
 ```bash
-ng test
+npm test
 ```
 
 ## Additional Setup Instructions

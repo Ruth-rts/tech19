@@ -1,18 +1,18 @@
 <div class="feature-list-container">
   <h3>Your Features</h3>
   <mat-list *ngIf="features().length > 0" class="feature-list-elements">
-    <mat-list-item
-      *ngFor="let feature of features()"
-      (click)="featureClick(feature)"
-      class="feature-item"
-    >
-      <div class="feature-item-content">
-        <span
-          ><b>{{ feature.name }}</b> ({{ feature.type }})</span
-        >
-        <span class="zoom-hint">Zoom</span>
-      </div>
-    </mat-list-item>
+   @for (feature of features(); track feature.id) {
+  <mat-list-item
+    (click)="featureClick(feature)"
+    class="feature-item"
+  >
+    <div class="feature-item-content">
+      <span><b>{{ feature.name }}</b> ({{ feature.type }})</span>
+      <span class="zoom-hint">Zoom</span>
+    </div>
+  </mat-list-item>
+}
+
   </mat-list>
   <mat-list *ngIf="features().length === 0">
     <mat-list-item class="feature-item">

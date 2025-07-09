@@ -35,9 +35,6 @@ export class MapComponent {
   public points: L.LatLng[] = [];
   private liveFeatureId: number | null = null;
 
-  /**
-   * Sets up effects for new feature creation, feature selection, and drawing reset.
-   */
   constructor() {
     // Register default Leaflet icons for markers
     registerDefaultLeafletIcon();
@@ -75,21 +72,15 @@ export class MapComponent {
   //   return feature ? feature.type : null;
   // });
 
-  /* Initializes the map and loads saved features after the view is initialized.*/
   ngAfterViewInit(): void {
     this.initMap();
   }
 
-  /*
-   * Enables drawing mode for the given feature type.
-   * @param featureType The type of feature to draw (marker, polygon, line)
-   */
   enableMode(featureType: FeatureType): void {
     this.resetDrawingState();
     this.mode = featureType;
   }
 
-  /* Initializes the Leaflet map and sets up click handlers for drawing features.*/
   private initMap(): void {
     try {
       // Create the map and set the initial view to Tel Aviv
@@ -174,18 +165,12 @@ export class MapComponent {
 
         default:
           // No drawing mode selected or unknown mode
-          console.warn('Unknown feature type:', this.mode);
+          alert('Select a feature type to start drawing on the map');
           return;
       }
     });
   }
 
-  /**
-   * Creates a new feature and adds it to the feature service.
-   * @param layer The Leaflet layer representing the feature
-   * @param type The type of feature (marker, polygon, line)
-   * @param coordinates The coordinates of the feature
-   */
   createFeature(
     layer: L.Layer,
     type: FeatureType,
@@ -202,14 +187,12 @@ export class MapComponent {
     this.liveFeatureId = id; // Store the ID for updates
   }
 
-  /* Updates the coordinates of the currently drawn feature.*/
   updateFeature(layer: L.Layer): void {
     if (this.liveFeatureId !== null) {
       this.featureService.updateFeature(this.liveFeatureId, this.points, layer);
     }
   }
 
-  /* Resets the drawing state and clears any in-progress drawing.*/
   private resetDrawingState(): void {
     this.mode = null;
     this.points = [];
@@ -218,7 +201,6 @@ export class MapComponent {
     this.liveFeatureId = null;
   }
 
-  /* Zooms the map to the selected feature. */
   zoomFeature(feature: Feature): void {
     const layer = feature.layer;
 
@@ -234,9 +216,7 @@ export class MapComponent {
     }
   }
 
-  /* Loads features from storage and adds them to the map and feature service.*/
   initMapWithSavedFeatures(): void {
-
     const saved = this.featureService.getSavedFeatures();
 
     for (const f of saved) {
