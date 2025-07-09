@@ -60,10 +60,6 @@ export class MapComponent {
     return feature ? feature.name : '';
   });
 
-  // mode = computed(() => {
-  //   const feature = this.pendingFeature();
-  //   return feature ? feature.type : null;
-  // });
 
   ngAfterViewInit(): void {
     this.initMap();
