@@ -48,8 +48,10 @@ export class MapComponent {
 
     // Effect: When drawing is reset, clear the drawing state.
     effect(() => {
-      this.featureService.resetDrawing();
-      this.resetDrawingState();
+      const resetTrigger = this.featureService.resetDrawing();
+      if (resetTrigger) {
+        this.resetDrawingState();
+      }
     });
   }
 
