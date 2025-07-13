@@ -1,8 +1,7 @@
 import { Component, signal, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MapComponent } from '../map/map.component';
-import 'leaflet/dist/images/marker-icon.png';
-import 'leaflet/dist/images/marker-shadow.png';
+
 import { FeatureListComponent } from '../feature-list/feature-list.component';
 import { AddFeatureComponent } from '../add-feature/add-feature.component';
 import { Feature } from '../../models/feature.model';

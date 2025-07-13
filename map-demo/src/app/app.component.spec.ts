@@ -1,21 +1,27 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { RouterOutlet } from '@angular/router';
 
 describe('AppComponent', () => {
-  let app: AppComponent;
+  let component: AppComponent;
+  let fixture: ComponentFixture<AppComponent>;
 
-  beforeEach(() => {
-    app = new AppComponent();
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+      // אם את לא משתמשת ב-standalone את צריכה להוסיף declarations במקום imports
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(AppComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
   });
 
   it('should create the app', () => {
-    expect(app).toBeTruthy();
+    expect(component).toBeTruthy();
   });
 
-  it(`should have the 'map-demo' title`, () => {
-    expect(app.title).toEqual('map-demo');
+  it(`should have title 'map-demo'`, () => {
+    expect(component.title).toBe('map-demo');
   });
-
-  // Rendering tests are not supported in this plain class test.
-  // If you want to test template rendering, use Angular's TestBed with a Vitest-compatible setup.
 });
