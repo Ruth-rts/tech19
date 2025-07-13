@@ -1,5 +1,14 @@
 <div class="feature-list-container">
-  <h3>Your Features</h3>
+  <div class="feature-list-header">
+    <h3>Your Features</h3>
+    <div class="clear-btn"
+      *ngIf="features().length > 0"
+      (click)="clearAllFeatures()"
+      class="clear-btn"
+    >
+      Clear All
+    </div>
+  </div>
   <mat-list *ngIf="features().length > 0" class="feature-list-elements">
     @for (feature of features(); track feature.id) {
     <mat-list-item (click)="featureClick(feature)" class="feature-item">

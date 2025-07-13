@@ -16,8 +16,11 @@ export class FeatureListComponent {
   features = this.featureService.features;
   onSelect = output<Feature>();
 
-  
   featureClick(feature: Feature): void {
     this.onSelect.emit(feature);
+  }
+
+  clearAllFeatures(): void {
+    this.featureService.clearAll(); // implement this method in the service
   }
 }

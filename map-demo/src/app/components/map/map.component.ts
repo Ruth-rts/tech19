@@ -1,6 +1,7 @@
 import { Component, input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import * as L from 'leaflet';
+import { Subject, takeUntil } from 'rxjs';
 
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -25,7 +26,7 @@ import { registerDefaultLeafletIcon } from '../../utils/leaflet-icon';
 export class MapComponent {
   featureService = inject(FeatureService);
   pendingFeature = this.featureService.pendingFeature;
-
+  private destroy$ = new Subject<void>();
   private map!: L.Map;
   mode: Mode = null;
   private livePolygon: L.Polygon | null = null;
@@ -39,7 +40,6 @@ export class MapComponent {
     // Effect: When a new feature is created, enable drawing mode and set the feature name.
     effect(() => {
       const feature = this.pendingFeature();
-
       if (feature) {
         this.enableMode(feature.type);
       }
@@ -59,9 +59,10 @@ export class MapComponent {
     return feature ? feature.name : '';
   });
 
-
   ngAfterViewInit(): void {
     this.initMap();
+
+    this.initClearFeaturesSubscription();
   }
 
   enableMode(featureType: FeatureType): void {
@@ -238,5 +239,27 @@ export class MapComponent {
         layer,
       });
     }
+  }
+  
+  initClearFeaturesSubscription(): void {
+    // Subscribe to clear features observable to clear all map layers
+    this.featureService.clearFeatures$
+      .pipe(takeUntil(this.destroy$))
+      .subscribe(() => {
+        this.clearAllMapLayers();
+      });
+  }
+
+  clearAllMapLayers(): void {
+    this.map.eachLayer((layer) => {
+      if ((layer as any)._url) return; // Don't remove base layer
+      this.map.removeLayer(layer);
+    });
+    this.resetDrawingState();
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

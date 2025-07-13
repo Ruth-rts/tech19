@@ -1,6 +1,7 @@
 import { Injectable, Signal, signal, inject } from '@angular/core';
 import * as L from 'leaflet';
 import { FeatureStorageService } from './feature-storage.service';
+import { Subject } from 'rxjs';
 import {
   Feature,
   FeatureData,
@@ -19,7 +20,8 @@ export class FeatureService {
     this._pendingFeature.asReadonly();
   private _resetDrawing = signal(0);
   public resetDrawing = this._resetDrawing.asReadonly();
-
+  private _clearFeaturesSubject = new Subject<void>();
+  public clearFeatures$ = this._clearFeaturesSubject.asObservable();
   private featureStorageService = inject(FeatureStorageService);
 
   setNewFeature(name: string, type: FeatureType): void {
@@ -42,7 +44,6 @@ export class FeatureService {
     );
     this.saveToStorage();
   }
-  
 
   triggerResetDrawing(): void {
     this._resetDrawing.set(Date.now());
@@ -62,6 +63,12 @@ export class FeatureService {
   }
 
   generateRandomId(): number {
-    return Math.floor(Math.random() * 1_000_000_000_000)
+    return Math.floor(Math.random() * 1_000_000_000_000);
+  }
+
+  clearAll(): void {
+    this._features.set([]);
+    this._clearFeaturesSubject.next(); 
+    this.saveToStorage(); 
   }
 }

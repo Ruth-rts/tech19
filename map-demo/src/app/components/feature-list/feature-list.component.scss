@@ -5,6 +5,26 @@
   height: 100%;
   flex-grow: 1;
 }
+.feature-list-header {
+  position: relative;
+
+  h3 {
+    margin: 0;
+  }
+
+  .clear-btn {
+    font-size: 13px;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: fit-content;
+    color: #1976d2;
+    cursor: pointer;
+    top: 0;
+    margin: auto;
+  }
+}
+
 .feature-list-elements {
   overflow-y: auto;
 }
